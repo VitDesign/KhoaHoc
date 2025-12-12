@@ -770,6 +770,7 @@
 
 <script>
 const SHOPEE_LINK = "https://s.shopee.vn/6AdemaGKEQ";
+const ADMIN_PASSWORD = "1810"; // mật khẩu mặc định
 
 /* ===================== QUẢN LÝ STREAK ===================== */
 function getStreak() {
@@ -836,6 +837,15 @@ function checkAccess() {
   });
 }
 
+// Dùng cho link "Khoá Học" trong nav để tránh lỗi undefined và cảnh báo rõ ràng.
+function checkStreakBeforeAccess() {
+  if (getStreak() < 50) {
+    alert("Streak phải đạt từ 50 trở lên để xem tài liệu.");
+    return false;
+  }
+  return true;
+}
+
 /* ===================== LINK MỞ SHOPEE & KHÓA HỌC ===================== */
 function attachCourseHandlers() {
   document.querySelectorAll("a.go").forEach(link => {
@@ -897,7 +907,7 @@ function openAdmin() {
 
 function login() {
   const pass = document.getElementById("adminPass").value;
-  if (pass === "1810") {
+  if (pass === ADMIN_PASSWORD) {
     document.getElementById("adminModal").style.display = "none";
     document.getElementById("adminPanel").style.display = "flex";
     loadAdminData();
